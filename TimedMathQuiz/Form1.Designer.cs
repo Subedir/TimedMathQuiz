@@ -53,6 +53,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timeEnterBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.sum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difference)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.product)).BeginInit();
@@ -61,23 +62,25 @@
             // 
             // timeLabel
             // 
+            this.timeLabel.BackColor = System.Drawing.Color.Green;
             this.timeLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.timeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeLabel.Location = new System.Drawing.Point(272, 9);
+            this.timeLabel.Location = new System.Drawing.Point(292, 7);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(200, 30);
+            this.timeLabel.Size = new System.Drawing.Size(180, 30);
             this.timeLabel.TabIndex = 0;
+            this.timeLabel.Visible = false;
             this.timeLabel.Click += new System.EventHandler(this.timeLabel_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(165, 14);
+            this.label1.Location = new System.Drawing.Point(12, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 25);
+            this.label1.Size = new System.Drawing.Size(274, 25);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Time Left";
+            this.label1.Text = "Please enter a desired time";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // plusLeftLabel
@@ -294,11 +297,19 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // timeEnterBox
+            // 
+            this.timeEnterBox.Location = new System.Drawing.Point(329, 13);
+            this.timeEnterBox.Name = "timeEnterBox";
+            this.timeEnterBox.Size = new System.Drawing.Size(100, 20);
+            this.timeEnterBox.TabIndex = 24;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 362);
+            this.Controls.Add(this.timeEnterBox);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -361,6 +372,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox timeEnterBox;
     }
 }
 

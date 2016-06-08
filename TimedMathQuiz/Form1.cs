@@ -15,9 +15,17 @@ namespace TimedMathQuiz
 
         // create a random object called randomizer
         Random randomizer = new Random();
-        int addend1;
-        int addend2;
-        int timeLeft;
+        int addnum1;
+        int addnum2;
+        int subtractnum1;
+        int subtractnum2;
+        int multiplynum1;
+        int multiplynum2;
+        int dividenum1;
+        int dividenum2;
+
+        int totalTime;
+        int timeLeft; 
         public Form1()
         {
             InitializeComponent();
@@ -26,19 +34,63 @@ namespace TimedMathQuiz
 
         public void StartTheQuiz()
         {
-            addend1 = randomizer.Next(51);
-            addend2 = randomizer.Next(51);
 
-            plusLeftLabel.Text = addend1.ToString();
-            plusRightLabel.Text = addend2.ToString();
-
+            // create random numbers for the 2 numbers to add
+            addnum1 = randomizer.Next(51);
+            addnum2 = randomizer.Next(51);
+            // set the labels text to the two numbers defined 
+            plusLeftLabel.Text = addnum1.ToString();
+            plusRightLabel.Text = addnum2.ToString();
             sum.Value = 0;
-            timeLeft = 5;
+
+            //*******************************************************//
+            subtractnum1 = randomizer.Next(0, 101);
+            subtractnum2 = randomizer.Next(0, subtractnum1);
+
+            minusLeftLabel.Text = subtractnum1.ToString();
+            minusRightLabel.Text = subtractnum2.ToString();
+
+            difference.Value = 0;
+
+
+            //*******************************************************//
+
+            multiplynum1 = randomizer.Next(2,11);
+            multiplynum2 = randomizer.Next(2, 11);
+
+            timesLeftLabel.Text = multiplynum1.ToString();
+            timesRightLabel.Text = multiplynum2.ToString();
+
+            product.Value = 0;
+
+            //*******************************************************//
+
+            dividenum2 = randomizer.Next(2, 11);
+            int tempNumber = randomizer.Next(2, 11);
+            dividenum1 = dividenum2 * tempNumber;
+
+            dividedLeftLabel.Text = dividenum1.ToString();
+            dividedRightLabel.Text = dividenum2.ToString();
+            quotient.Value = 0;
+            //*******************************************************//
+            timeLeft = setTime();
+            totalTime = timeLeft; // this sets a marker called totalTime which will keep the original time entered
             timeLabel.Text = timeLeft + " seconds";
             timer1.Start();
 
         }
 
+
+        private int setTime()
+        {
+            int tempTime = 0;
+
+            tempTime = int.Parse(timeEnterBox.Text);
+            timeLabel.Visible = true; // this makes the label box which displays the time visable
+            timeEnterBox.Visible = false; // this hides the text box which serves as an input for the time
+
+            return tempTime;
+        }
         private void timeLabel_Click(object sender, EventArgs e)
         {
 
@@ -51,8 +103,18 @@ namespace TimedMathQuiz
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            StartTheQuiz();
-            startButton.Enabled = false;
+            int tempValue;
+            if (timeEnterBox.Text != null && (int.TryParse(timeEnterBox.Text, out tempValue)) && tempValue >= 1)
+            {
+                StartTheQuiz();
+                startButton.Enabled = false;
+            }
+
+            else
+            {
+                MessageBox.Show("Please Enter a time to count down to.");
+
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -75,13 +137,30 @@ namespace TimedMathQuiz
                 timeLeft = timeLeft - 1;
                 timeLabel.Text = timeLeft + " Seconds";
 
+                if (( 100 * timeLeft / totalTime) > 60) // this checks to see if the time has reached less than 50% of the original time.
+                {
+                    timeLabel.BackColor = Color.Green;
+                }
+
+                else if ((100 * timeLeft / totalTime) > 30) // this checks to see if the time has reached less than 10% of the original time.
+                {
+                    timeLabel.BackColor = Color.Yellow;
+                }
+
+                else if ((100 * timeLeft / totalTime) > 10) // this checks to see if the time has reached less than 10% of the original time.
+                {
+                    timeLabel.BackColor = Color.Red;
+                }
             }
             else
             {
                 timer1.Stop();
                 timeLabel.Text = "Time's up!";
                 MessageBox.Show("You didn't finish in time.", "Sorry!");
-                sum.Value = addend1 + addend2;
+                sum.Value = addnum1 + addnum2;
+                difference.Value = subtractnum1 - subtractnum2;
+                product.Value = multiplynum1 * multiplynum2;
+                quotient.Value = dividenum1 / dividenum2;
                 startButton.Enabled = true;
                 
             }
@@ -90,7 +169,10 @@ namespace TimedMathQuiz
 
         private bool CheckTheAnswer()
         {
-            if (addend1 + addend2 == sum.Value)
+            if ( ((addnum1 + addnum2) == sum.Value) 
+                && ((subtractnum1 - subtractnum2) == difference.Value) 
+                && ((multiplynum1*multiplynum2) == product.Value) 
+                && ((dividenum1/dividenum2) == quotient.Value))
             {
                 return true;
             }
